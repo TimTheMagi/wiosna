@@ -5,7 +5,7 @@ A custom lightweight discord bot
 
 ## Installation
 
-Dillinger requires [Node.js](https://nodejs.org/) v16+ to run.
+Wisona requires [Node.js](https://nodejs.org/) v16+ to run.
 
 Run
 
