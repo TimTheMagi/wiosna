@@ -18,6 +18,8 @@ const client = new Client({ intents: [	GatewayIntentBits.Guilds,
 client.player = new Player(client);
 client.commands = new Collection();
 
+client.player.on("trackStart", (queue:any, track:any) => queue.metadata.channel.send(`🎶 | Now playing **${track.title}**!`));
+
 
 //Dynamically load all commands for files in the commands folder that end in .js
 const commandsPath = path.join(__dirname, 'commands');
@@ -29,8 +31,6 @@ for (const file of commandFiles){
 
     client.commands.set(command.data.name, command);
 }
-
-client.player.on("trackStart", (queue:any, track:any) => queue.metadata.channel.send(`🎶 | Now playing **${track.title}**!`));
 
 // When the client is ready, run this code (only once)
 client.once('ready', () => {
