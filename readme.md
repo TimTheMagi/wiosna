@@ -20,4 +20,9 @@ To start, run
 yarn build
 yarn start
 ```
+To register the slash commands run
 
+```sh
+node build/deploy-commands.js
+```
+after building.

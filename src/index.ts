@@ -18,8 +18,10 @@ const client = new Client({ intents: [	GatewayIntentBits.Guilds,
 client.player = new Player(client);
 client.commands = new Collection();
 
-client.player.on("trackStart", (queue:any, track:any) => queue.metadata.channel.send(`🎶 | Now playing **${track.title}**!`));
-
+//client.player.on("trackStart", (queue:any, track:any) => queue.metadata.channel.send(`🎶 | Now playing **${track.title}**!`));
+client.player.on("connectionError", (queue:any, error:Error) => console.log(error.message))
+client.player.on("error", (queue:any, error:Error) => console.log(error.message))
+client.player.on("tracksAdd", (queue: any, tracks: any) => console.log(`Tracks have been added`))
 
 //Dynamically load all commands for files in the commands folder that end in .js
 const commandsPath = path.join(__dirname, 'commands');

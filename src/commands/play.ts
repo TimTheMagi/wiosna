@@ -12,11 +12,20 @@ module.exports = {
 	async execute(interaction:any, player:Player) {
 
         //Might need to only change the stream player on youtube videos
-		let queue = player.createQueue(interaction.guildId, {
-            async onBeforeCreateStream(track, source, _queue){
-                return (await playdl.stream(track.url, { discordPlayerCompatibility : true })).stream
-            }
-        });
+        //Definitely going to have to move this to the index
+
+        let queue = player.getQueue(interaction.guildId);
+
+        let newq = ((queue == undefined) ? true : false)
+        console.log(newq)
+
+        if (queue == undefined){
+            queue = player.createQueue(interaction.guildId, {
+                async onBeforeCreateStream(track, source, _queue){
+                    return (await playdl.stream(track.url, { discordPlayerCompatibility : true })).stream
+                }
+            });
+        }
 
         
 
@@ -25,15 +34,24 @@ module.exports = {
         })
 
         try {
-            await queue.connect(interaction.member.voice.channel);
+            if (!queue.connection){
+                await queue.connect(interaction.member.voice.channel);
+                console.log("Attempting to connect");
+            }
         }
         catch {
             interaction.reply("Could not join your voice channel");
+            return
         }
 
         queue.addTrack(song.tracks[0]);
-        console.log(queue.toString());
-        queue.play();
-        console.log(queue.toString());
+        //queue.tracks.push(song.tracks[0]);
+        console.log(queue);
+        if (newq) {
+            queue.play();
+            console.log(queue.toString());
+        }
+
+        interaction.reply(`**${song.tracks[0].title}** has been added to the queue. **(${song.tracks[0].duration})**`)
 	},
 }
