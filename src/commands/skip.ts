@@ -12,7 +12,8 @@ module.exports = {
 		let response = "There is nothing currently playing."
 
 		if (np != undefined){
-			let response = `**Skipped:** ${np.toString()}`
+			response = `**Skipped:** ${np.toString()}`
+			queue?.skip()
 		}
         
         await interaction.reply(response)
