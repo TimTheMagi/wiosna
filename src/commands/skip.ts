@@ -12,7 +12,7 @@ module.exports = {
 		let response = "There is nothing currently playing."
 
 		if (np != undefined){
-			response = `**Skipped:** ${np.toString()}`
+			response = `**Skipped:** ${np.title.toString()}`
 			queue?.skip()
 		}
         

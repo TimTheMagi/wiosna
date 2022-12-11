@@ -52,6 +52,6 @@ module.exports = {
             console.log(queue.toString());
         }
 
-        interaction.reply(`**${song.tracks[0].title}** has been added to the queue. **(${song.tracks[0].duration})**`)
+        interaction.reply(`🎶**${song.tracks[0].title}** has been added to the queue. **(${song.tracks[0].duration})**`)
 	},
 }
